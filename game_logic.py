@@ -6,46 +6,71 @@ import data_manager
 from datetime import datetime
 
 
+# === Module-level utility functions ===
 def get_letter():
-    """Returns a random letter for the game round."""
-    return random.choice("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    """Selects a random letter that is common for starting words."""
+    common_letters = "ABCDEFGHIJKLMNOPRST"
+    return random.choice(common_letters)
 
 
-def get_categories():
-    """Returns the list of categories for the current game."""
-    return CATEGORIES
+# === Game Class ===
+class Game:
+    """Represents a single round of the game."""
 
+    def __init__(self, letter):
+        self.letter = letter.upper()
+        self.categories = CATEGORIES
+        self.initial_results = {}
+        self.final_results = {}
+        self.points = 0
 
-def process_game_inputs(inputs, letter, main_menu_callback):
-    """
-    Receives inputs, validates them, calculates points, saves the results,
-    and then calls the callback to return to the main menu.
-    """
-    validated_count = 0
-    today_date = datetime.now().strftime("%d-%m-%Y")
-    round_data = {"Letter": letter.upper(), "Date": today_date}
-    round_data.update({cat: "" for cat in CATEGORIES})
+    def validate_answers(self, inputs):
+        """
+        Performs initial validation of user inputs using a cache-first approach.
+        """
+        logging.info(
+            f"Performing initial validation for game with letter '{self.letter}'..."
+        )
+        self.initial_results = {}
 
-    for category, term in inputs.items():
-        if term:
-            if not term.lower().startswith(letter.lower()):
-                logging.warning(
-                    f"Skipping '{term}': Does not start with the letter '{letter}'."
-                )
-                continue
+        for category, term in inputs.items():
+            points = 0
+            clean_term = term.strip() if term else ""
 
-            if validate_input(term, category):
-                validated_count += 1
-                round_data[category] = term.title()
+            if clean_term and clean_term.upper().startswith(self.letter):
+                # Check the local cache first
+                if data_manager.is_term_verified(clean_term, category):
+                    logging.info(
+                        f"Found '{clean_term}' in cache for category '{category}'."
+                    )
+                    points = 10
+                # If not in cache, use Wikipedia validator
+                elif validate_input(clean_term, category):
+                    points = 10
+                    # Add the newly validated term to the cache
+                    data_manager.add_verified_term(clean_term, category)
 
-    points = validated_count * 10
-    round_data["Points"] = points
-    logging.info(f"Round Results: {inputs} -> Points: {points}")
+            self.initial_results[category] = {"term": clean_term, "points": points}
 
-    if points > 0:
-        data_manager.save_results_to_csv(round_data)
-        logging.info(f"Round with {points} points saved.")
-    else:
-        logging.info("Round with 0 points not saved.")
+        return self.initial_results
 
-    main_menu_callback()
+    def save_final_results(self, reviewed_results):
+        """Calculates final points from reviewed results and saves to CSV."""
+        logging.info("Saving final results after user review...")
+
+        total_points = sum(result["points"] for result in reviewed_results.values())
+        self.points = total_points
+
+        round_data = {
+            "Letter": self.letter,
+            "Date": datetime.now().strftime("%d-%m-%Y"),
+        }
+
+        for category, result in reviewed_results.items():
+            round_data[category] = result["term"]
+
+        round_data["Points"] = self.points
+        self.final_results = round_data
+
+        data_manager.save_results_to_csv(self.final_results)
+        logging.info(f"Game saved with {self.points} points.")
