@@ -1,5 +1,15 @@
 VALIDATION_KEYWORDS = {
-    "City": ["city", "cities", "town", "settlement", "municipality"],
+    "City": [
+        "city",
+        "cities",
+        "town",
+        "settlement",
+        "municipality",
+        "stadt",
+        "gemeinde",
+        "siedlung",
+        "ortschaft",
+    ],
     "Country": [
         "country",
         "countries",
@@ -7,9 +17,29 @@ VALIDATION_KEYWORDS = {
         "state",
         "republic",
         "sovereign state",
+        "land",
+        "staat",
+        "nation",
+        "republik",
+        "bundesstaat",
     ],
-    "River": ["river", "rivers", "watercourse"],
-    "Plant": ["plant", "flora", "tree", "flower", "fungus", "shrub", "species of"],
+    "River": ["river", "rivers", "watercourse", "fluss", "wasserlauf", "strom"],
+    "Plant": [
+        "plant",
+        "flora",
+        "tree",
+        "flower",
+        "fungus",
+        "shrub",
+        "species of",
+        "pflanze",
+        "baum",
+        "blume",
+        "pilz",
+        "strauch",
+        "gewächs",
+        "gattung",
+    ],
     "Animal": [
         "animal",
         "fauna",
@@ -20,9 +50,18 @@ VALIDATION_KEYWORDS = {
         "reptile",
         "amphibian",
         "species of",
+        "tier",
+        "säugetier",
+        "vogel",
+        "insekt",
+        "fisch",
+        "reptil",
+        "amphibie",
+        "gattung",
     ],
 }
 
-CATEGORIES = list(VALIDATION_KEYWORDS.keys())  # list of valid categor ies
-HISTORY_GAMES_TO_SHOW = 10  # number of games to show in history
-TIME_LIMIT = 60  # seconds for each round
+CATEGORIES = list(VALIDATION_KEYWORDS.keys())
+HISTORY_GAMES_TO_SHOW = 10
+TIME_LIMIT = 60
+FILEPATH = "game_results_by_round.csv"
