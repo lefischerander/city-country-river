@@ -66,8 +66,10 @@ VALIDATION_KEYWORDS = {
             "insekt",
             "fisch",
             "reptil",
+            "tiere",
+            "frosch",
         ],
-        "suffixes": ["katze", "gattung", "familie"],
+        "suffixes": ["katze", "gattung", "familie", "tiere", "tier", "rasse"],
     },
 }
 

@@ -18,11 +18,14 @@ class App:
     def setup_logging(self):
         """Configures the application-wide logging."""
         logging.basicConfig(
-            level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s"
+            level=logging.DEBUG,
+            format="%(asctime)s - %(levelname)s - %(message)s",
+            datefmt="%d-%m-%Y %H:%M:%S",
         )
         # Suppress warnings and logs from external libraries to keep logs clean.
         logging.getLogger("wikipedia").setLevel(logging.WARNING)
         logging.getLogger("urllib3").setLevel(logging.WARNING)
+        logging.getLogger("matplotlib").setLevel(logging.WARNING)
         warnings.filterwarnings("ignore", category=UserWarning, module="wikipedia")
         warnings.filterwarnings("ignore", category=UserWarning, module="urllib3")
 
@@ -33,6 +36,7 @@ class App:
             history_callback=self.show_history,
             search_callback=self.search_by_letter,
             show_all_callback=self.show_all_games,
+            stats_callback=self.show_stats,
         )
 
     def start_game(self):
@@ -103,6 +107,12 @@ class App:
         logging.info("Fetching all game history...")
         all_games = data_manager.get_all_games()
         interface.create_history_window(all_games, title="All Games")
+
+    def show_stats(self):
+        """Fetches game statistics and displays them in a new window."""
+        logging.info("Fetching game statistics...")
+        letter_distribution = data_manager.get_letter_distribution()
+        interface.create_stats_window(letter_distribution)
 
 
 if __name__ == "__main__":

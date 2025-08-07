@@ -185,6 +185,15 @@ def get_games_by_letter(letter):
     return df[df["Letter"].str.upper() == letter.upper()]
 
 
+def get_letter_distribution():
+    """Calculates the frequency of each starting letter from the game history."""
+    df = _read_and_sort_history()
+    if df.empty:
+        return pd.Series(dtype=int)
+    # Count occurrences and sort alphabetically for a clean chart
+    return df["Letter"].value_counts().sort_index()
+
+
 def save_results_to_csv(data):
     """Appends round results to the CSV, handling all synchronization and formatting."""
     try:

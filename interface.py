@@ -2,7 +2,10 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 import data_manager
 import pandas as pd
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from config import HISTORY_GAMES_TO_SHOW
+
 
 # === Helper Functions ===
 
@@ -158,7 +161,11 @@ def _create_history_sort_controls(parent_frame, tree, game_data):
 
 
 def create_start_window(
-    start_callback, history_callback, search_callback, show_all_callback
+    start_callback,
+    history_callback,
+    search_callback,
+    show_all_callback,
+    stats_callback,
 ):
     """
     Creates the main application window with a title and buttons.
@@ -168,7 +175,7 @@ def create_start_window(
     """
     root = tk.Tk()
     root.title("City, Country, River")
-    root.geometry("300x230")
+    root.resizable(False, False)
 
     main_frame = ttk.Frame(root, padding="20")
     main_frame.pack(expand=True, fill="both")
@@ -197,10 +204,55 @@ def create_start_window(
     )
     search_button.pack(pady=5, fill="x")
 
+    stats_button = ttk.Button(main_frame, text="Show Stats", command=stats_callback)
+    stats_button.pack(pady=5, fill="x")
+
     exit_button = ttk.Button(main_frame, text="Exit", command=root.destroy)
     exit_button.pack(pady=5, fill="x")
 
+    root.update_idletasks()
+    root.geometry(f"300x{root.winfo_height()}")
+
     root.mainloop()
+
+
+def create_stats_window(letter_distribution):
+    """Creates a window to display game statistics, like letter distribution."""
+    if letter_distribution.empty:
+        show_info("Statistics", "No game data available to generate statistics.")
+        return
+
+    stats_window = tk.Toplevel()
+    stats_window.title("Game Statistics")
+    stats_window.geometry("600x500")
+    stats_window.transient()
+    stats_window.grab_set()
+
+    main_frame = ttk.Frame(stats_window, padding="10")
+    main_frame.pack(fill="both", expand=True)
+
+    ttk.Label(
+        main_frame,
+        text="Distribution of Starting Letters",
+        font=("Helvetica", 14, "bold"),
+    ).pack(pady=(0, 10))
+
+    # Create a matplotlib figure
+    fig = Figure(figsize=(5, 4), dpi=100)
+    ax = fig.add_subplot(111)
+
+    # Create the bar plot
+    letter_distribution.plot(kind="bar", ax=ax, rot=0)
+
+    ax.set_title("Frequency of Each Letter Played")
+    ax.set_ylabel("Number of Games")
+    ax.set_xlabel("Letter")
+    fig.tight_layout()
+
+    # Embed the plot in the Tkinter window
+    canvas = FigureCanvasTkAgg(fig, master=main_frame)
+    canvas.draw()
+    canvas.get_tk_widget().pack(side="top", fill="both", expand=True)
 
 
 def create_history_window(game_data, title="Game History"):

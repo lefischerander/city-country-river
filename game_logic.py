@@ -9,7 +9,7 @@ from datetime import datetime
 # === Module-level utility functions ===
 def get_letter():
     """Selects a random letter that is common for starting words."""
-    common_letters = "ABCDEFGHIJKLMNOPRST"
+    common_letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     return random.choice(common_letters)
 
 
@@ -37,7 +37,12 @@ class Game:
             points = 0
             clean_term = term.strip() if term else ""
 
-            if clean_term and clean_term.upper().startswith(self.letter):
+            # If the term is empty, skip it
+            if (
+                clean_term
+                and clean_term.upper().startswith(self.letter)
+                and len(clean_term) > 1
+            ):
                 # Check the local cache first
                 if data_manager.is_term_verified(clean_term, category):
                     logging.info(
@@ -47,7 +52,6 @@ class Game:
                 # If not in cache, use Wikipedia validator
                 elif validate_input(clean_term, category):
                     points = 10
-                    # Add the newly validated term to the cache
                     data_manager.add_verified_term(clean_term, category)
 
             self.initial_results[category] = {"term": clean_term, "points": points}
@@ -67,7 +71,11 @@ class Game:
         }
 
         for category, result in reviewed_results.items():
-            round_data[category] = result["term"]
+            term = result["term"]
+            if len(term) == 1 and term.isalpha():
+                round_data[category] = ""
+            else:
+                round_data[category] = term
 
         round_data["Points"] = self.points
         self.final_results = round_data
