@@ -3,7 +3,7 @@ import interface
 import warnings
 from game_logic import Game, get_letter
 import logging
-from config import HISTORY_GAMES_TO_SHOW, CATEGORIES
+from config import HISTORY_GAMES_TO_SHOW, CATEGORIES, TIME_LIMIT
 
 
 class App:
@@ -79,7 +79,7 @@ class App:
             interface.create_review_window(initial_results, letter, on_review_confirmed)
 
         interface.create_game_window(
-            letter, categories, time_limit=60, submit_callback=on_submit
+            letter, categories, time_limit=TIME_LIMIT, submit_callback=on_submit
         )
 
     def show_history(self):

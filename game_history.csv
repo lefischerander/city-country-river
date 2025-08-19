@@ -1,7 +1,6 @@
 Date,Letter,Animal,City,Country,Plant,River,Points
 06-08-2025,R,,,,Rose,Rhein,20
 06-08-2025,O,Orangutan,Osnabrück,Oman,Oleander,Oder,50
-06-08-2025,K,,Köln,,,Kilchis River,20
 06-08-2025,T,,Toronto,Thailand,,Themse,30
 06-08-2025,F,Falke,Frankfurt,Frankreich,Farn,Fulda,50
 06-08-2025,M,Marder,Magdeburg,Malaysia,Magnolie,Main,50
@@ -12,10 +11,36 @@ Date,Letter,Animal,City,Country,Plant,River,Points
 07-08-2025,P,Pinguin,Prag,Portugal,Palme,Po,50
 07-08-2025,K,Kranich,Kiev,Kazachstan,,,30
 07-08-2025,A,Affe,Aachen,Australien,Alge,Arno,40
-07-08-2025,X,Xenopus,Xiamen,,Xanthosom,Xi Jiang,40
 07-08-2025,Q,Qualle,Quickborn,,Quitte,Queis,40
 07-08-2025,Y,Yorkshire Terrier,York,Yemen,Yucca,Yalong,50
 07-08-2025,D,Dachshund,Danzig,Deutschland,Dill,Donau,50
 07-08-2025,H,Hund,Hannover,Honduras,Hanf,Hudson River,50
 07-08-2025,D,Dachs,Delhi,Dänemark,Distel,Donau,50
 07-08-2025,V,Vogel,Venedig,Venezuela,Veilchen,Vienne,50
+10-08-2025,N,Nashorn,Northeim,Nicaragua,,Nidda,40
+10-08-2025,S,Schlange,Saarbrücken,Südafrika,Sonnenblume,Saar,50
+10-08-2025,I,Iltis,Innsbruck,Italien,Iris,Inn,50
+10-08-2025,Q,Qualle,Quickborn,Qatar,Quittenbaum,Queis,50
+10-08-2025,T,Tasmanischer,,Tibet,,Tejo,20
+10-08-2025,W,Wurm,Warschau,Wales,,Werra,40
+10-08-2025,O,Or,,Oman,,Oder,20
+10-08-2025,V,Viper,Venedig,,Vergissmeinnicht,Vienne,40
+10-08-2025,P,,Paris,Palau,Peperoni,Pur,40
+10-08-2025,Q,Quetzal,Quickborn,Qatar,Quinoa,Queis,50
+10-08-2025,Z,,Zwickau,Zentralafrikanische Republik,,Zwickauer Mulde,30
+10-08-2025,R,,Rostock,Ruanda,Raps,Rhein,40
+10-08-2025,H,Hamster,Hanau,Honduras,Holunder,Hudson River,50
+10-08-2025,P,,Padderborn,Polinesien,Palme,Pader,40
+10-08-2025,S,Schlange,Stuttgart,Samoa,Salbei,Shannon,50
+10-08-2025,O,Orangutan,Ontario,Osttimor,Orchidee,Oder,40
+10-08-2025,V,Vogelspinne,Vancouver,Venezuela,Veilchen,Vienne,50
+10-08-2025,M,Meerschwein,München,Madagascar,Mais,Moldau,50
+10-08-2025,V,Vogel,Venedig,Vietnam,Vergissmeinnicht,Vils,50
+10-08-2025,Y,Yak,Ybbs,Yemen,Yukka,Ybbs,50
+10-08-2025,P,Plo,Prag,Portugal,Palme,Pegnitz,40
+10-08-2025,I,Igel,Ingolstadt,Indien,Iris,Indre,50
+10-08-2025,W,Waschbär,Warschau,Wales,Wasserlilie,Weser,50
+10-08-2025,K,Katze,Köln,Kasachstan,Kombucha,Kilsich River,40
+10-08-2025,K,,Katmandu,Kroatien,Kast,Kilchis River,20
+19-08-2025,D,Dachs,Dortmund,Dschibuti,Dill,Donau,50
+19-08-2025,K,Krokodil,Kiel,Kirgisistan,Koriander,Kongo,50

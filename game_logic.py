@@ -37,7 +37,7 @@ class Game:
             points = 0
             clean_term = term.strip() if term else ""
 
-            # If the term is empty, skip it
+            # If the term isn't empty, check its validity
             if (
                 clean_term
                 and clean_term.upper().startswith(self.letter)
